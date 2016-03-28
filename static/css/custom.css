@@ -1,0 +1,24 @@
+.g-reads__nav--dark {
+  background-color: #484848;
+  color: white;
+}
+
+.mdl-card__media.main--home-card__media {
+  background: none;
+}
+
+.mdl-card__media.main--home-card__media .main--home-card__img {
+  width: 100%;
+}
+
+/* for hiding links from UI but keeping them screen reader accessible. */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}

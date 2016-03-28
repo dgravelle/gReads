@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ../partials/head %>
+<body>
+  <% include ../partials/nav %>
+
+    <main class="main--add-book">
+      <div class="mdl-grid">
+        <div class="mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+          <form class="add-book__form" action="/books" method="GET">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input id="title" type="text" name="title" class="mdl-textfield__input">
+                <label for="title" class="mdl-textfield__label">Title</label>
+                <span class="mdl-textfield__error">Please enter a title</span>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <label for="genre" class="mdl-textfield__label">Genre</label>
+                <input id="genre" type="text" name="genre" class="mdl-textfield__input">
+                <span class="mdl-textfield__error">Please enter at least one genre</span>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield">
+                <input id="coverImage" name="coverImage" type="text" class="mdl-textfield__input">
+                <label for="coverImage" class="mdl-textfield__label">Cover Image</label>
+                <span class="mdl-textfield__error">Please enter a url for a cover image</span>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield">
+                <textarea id="description" name="description" type="text" class="mdl-textfield__input"></textarea>
+                <label for="description" class="mdl-textfield__label">Description</label>
+                <span class="mdl-textfield__error">Please enter a description</span>
+              </div>
+              <div class="add-authors">
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input id="author1" name="authors" type="text" class="mdl-textfield__input">
+                  <label for="description" class="mdl-textfield__label">Author(s)</label>
+                  <span class="mdl-textfield__error">Please enter at least one author</span>
+                </div>
+              </div>
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" type="submit">Add Book</button>
+          </form>
+          </div>
+      </div>
+    </main>
+
+  <% include ../partials/footer %>
+</body>
+</html>
+
+
+
+<!--
+
+Title
+Genre
+Cover Image
+Description
+Authors -->
