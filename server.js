@@ -16,18 +16,38 @@ app.get('/', (req, res) => {
   res.render('pages/index');
 });
 
-app.get('/books*', (req, res) => {
-  console.log(req.url.includes('/new'));
-  if (req.url.includes('/new')) {
-    console.log('in');
-    res.render('pages/new-book-form');
-  }
+app.get('/books', (req, res) => {
+  // console.log(req.url.includes('/new'));
+  // if (req.url.includes('/new')) {
+  //   console.log('in');
+  //   res.render('pages/new-book-form');
+  // }
   res.render('pages/books');
 });
-//
-// app.get('/books/new', (req, res) => {
-//
-// });
+
+app.get('/books/new', (req, res) => {
+  res.render('pages/book-form');
+});
+
+app.get('/books/:id/edit', (req, res) => {
+  res.render('pages/book-form');
+});
+
+app.put('/books/:id/edit/', (req, res) => {
+  // update book
+});
+
+app.get('/authors', (req, res) => {
+  res.render('pages/authors');
+});
+
+app.get('/authors/:id/edit', (req, res) => {
+  res.render('pages/author-form');
+});
+
+app.post('/authors', (req, res) => {
+  // get new author information
+});
 
 app.listen(app.get('port'), () => {
   console.log('Listening on ', app.get('port'));
