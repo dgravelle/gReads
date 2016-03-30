@@ -1,0 +1,26 @@
+CREATEDB galvanize_reads
+
+CREATE TABLE books (
+  id SERIAL PRIMARY KEY,
+  book_title TEXT,
+  book_genre TEXT,
+  book_description TEXT,
+  book_cover_url TEXT,
+  book_authors
+
+);
+
+CREATE TABLE authors (
+  id SERIAL PRIMARY KEY,
+  first_name TEXT,
+  last_name TEXT,
+  book_genre TEXT,
+  portrait_url TEXT,
+  biography TEXT
+)
+
+CREATE TABLE authors_books (
+  id SERIAL PRIMARY KEY,
+  book_id integer NOT NULL REFERENCES books.id ON DELETE CASCADE
+  author_id integer NOT NULL REFERENCES authors.id ON DELETE CASCADE
+)
