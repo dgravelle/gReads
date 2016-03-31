@@ -2,6 +2,11 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const knex = require('./db/knex');
+
+function books() {
+    return knex('books');
+}
 
 app.use(bodyParser.json());
 app.use(morgan('short'));
@@ -17,12 +22,19 @@ app.get('/', (req, res) => {
 });
 
 app.get('/books', (req, res) => {
+  console.log(req.url);
+
+  books().select().then(function(data) {
+    console.log(data.book_title);
+
+    res.render('pages/books', { book: data});
+  });
   // console.log(req.url.includes('/new'));
   // if (req.url.includes('/new')) {
   //   console.log('in');
   //   res.render('pages/new-book-form');
   // }
-  res.render('pages/books');
+
 });
 
 app.get('/books/new', (req, res) => {
