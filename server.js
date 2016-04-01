@@ -13,7 +13,8 @@ app.use(morgan('short'));
 
 app.disable('x-powered-by');
 app.set('port', process.env.PORT || 5000);
-app.set('view engine', 'ejs');
+// app.set('view engine', 'ejs');
+app.set('view engine', 'jade');
 app.use('/static', express.static(__dirname + '/static'));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
 
