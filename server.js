@@ -49,12 +49,17 @@ app.get('/authors', (req, res) => {
 
 app.get('/authors/new', (req, res) => {
   // get new author information
-  res.render('pages/author-form')
+  res.render('pages/author-form');
 });
 
 app.post('/authors/new', (req, res) => {
   // get new author information
   // res.render('pages/author-form')
+});
+
+app.post('/authors/:id', (req, res) => {
+  // get new author information
+  res.render('pages/author-listing');
 });
 
 app.get('/authors/:id/edit', (req, res) => {
