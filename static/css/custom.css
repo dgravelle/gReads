@@ -30,3 +30,8 @@
 .mdl-textfield__input.g-reads-input--dark {
   border-bottom: 1px solid rgba(0,0,0,.5);
 }
+
+.add-books-written .mdl-grid {
+  padding-left: 0;
+  padding-right: 0;
+}

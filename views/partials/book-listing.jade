@@ -1,0 +1,29 @@
+for book in books
+  section.book-listing
+    div.mdl-grid
+      div.mdl-cell--4-col
+        img.book-listing__img(src="https://placehold.it/256x256" alt="")
+
+      div.mdl-cell--8-col
+        div.mdl-grid
+          div.mdl-cell--10-col
+            a(href="/books/1")
+              h2.book-listing_h2= book.book_title 
+
+          div.mdl-cell--2-col.mdl-cell--middle
+            div.book-listing__controls
+              a(href="books/1/edit")
+                i.material-icons mode_edit
+              a(href="books/1/delete")
+                i.material-icons remove_circle
+
+
+
+        div.book-listing__author= book.book_authors
+          
+
+        div.book-listing__genre
+          em= book.book_genre
+            
+        div.book-listing__description
+          p.book-listing__description__p= book.book_description

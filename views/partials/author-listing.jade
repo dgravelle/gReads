@@ -1,0 +1,30 @@
+
+section.author-listing
+   div.mdl-grid 
+     div.mdl-cell--4-col 
+       img.author-listing__img(src="https://placehold.it/256x256" alt="")
+
+     div.mdl-cell--8-col 
+       div.mdl-grid 
+         div.mdl-cell--10-col 
+           a(href="/books/1") 
+             h2.author-listing_h2 author.name
+            
+
+         div.mdl-cell--2-col.mdl-cell--middle 
+           div.author-listing__controls 
+             a.material-icons.mode_edit(href="authors/1/edit")  
+               i.material-icons remove_edit
+             a(href="authors/1/delete")  
+               i.material-icons remove_circle 
+               
+       div.author-listing__bio 
+         p.author-listing__bio author.bio
+          
+
+
+       div.author-listing__books 
+         ul.author-listing__books__ul 
+           li.author-listing__books__li Book 1
+           li.author-listing__books__li Book 2
+           li.author-listing__books__li Book 3

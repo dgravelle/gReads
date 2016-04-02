@@ -23,19 +23,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/books', (req, res) => {
-  console.log(req.url);
-
   books().select().then(function(data) {
-    console.log(data.book_title);
-
-    res.render('pages/books', { book: data});
+    res.render('pages/books', { books: data});
   });
-  // console.log(req.url.includes('/new'));
-  // if (req.url.includes('/new')) {
-  //   console.log('in');
-  //   res.render('pages/new-book-form');
-  // }
-
 });
 
 app.get('/books/new', (req, res) => {
@@ -43,7 +33,10 @@ app.get('/books/new', (req, res) => {
 });
 
 app.get('/books/:id/edit', (req, res) => {
-  res.render('pages/book-form');
+  const id = req.params.id;
+  books().where({ id: id}).first().then((book) => {
+      res.render('pages/book-form', { book: book });
+  });
 });
 
 app.put('/books/:id/edit/', (req, res) => {
@@ -54,13 +47,21 @@ app.get('/authors', (req, res) => {
   res.render('pages/authors');
 });
 
+app.get('/authors/new', (req, res) => {
+  // get new author information
+  res.render('pages/author-form')
+});
+
+app.post('/authors/new', (req, res) => {
+  // get new author information
+  // res.render('pages/author-form')
+});
+
 app.get('/authors/:id/edit', (req, res) => {
   res.render('pages/author-form');
 });
 
-app.post('/authors', (req, res) => {
-  // get new author information
-});
+
 
 app.listen(app.get('port'), () => {
   console.log('Listening on ', app.get('port'));

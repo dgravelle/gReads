@@ -1,4 +1,5 @@
-html
+doctype html
+html(lang=en)
 
   include ../partials/head
 
@@ -14,11 +15,11 @@ body
               h2.mdl-card__title-text Browse by Authors
 
             div.mdl-card__media.main--home-card__media
-              img(src="https://placehold.it/256x256", alt="").main--home-card__img
+              img.main--home-card__img(src="https://placehold.it/256x256", alt="")
 
             div.mdl-card__actions.mdl-card--border
-              a(href="/authors").mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect
-                Get Started
+              a.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(href="/authors") Get Started
+                
                 span.sr-only browsing by author
 
         div.mdl-cell.mdl-cell--4-col.mdl-cell--middle.mdl-cell--stretch
@@ -27,16 +28,11 @@ body
               h2.mdl-card__title-text Browse by Books
 
             div.mdl-card__media.main--home-card__media
-              img(src="https://placehold.it/256x256" alt="").main--home-card__img
+              img.main--home-card__img(src="https://placehold.it/256x256" alt="")
 
             div.mdl-card__actions.mdl-card--border
-              a.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(href="/books")
-                Get Started 
+              a.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(href="/books") Get Started 
+                
                 span.sr-only browsing by books
-
-
-
-
-
 
   include ../partials/footer
