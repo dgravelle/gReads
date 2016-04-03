@@ -8,6 +8,7 @@ function books() {
     return knex('books');
 }
 
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(morgan('short'));
 
@@ -54,7 +55,9 @@ app.get('/authors/new', (req, res) => {
 
 app.post('/authors/new', (req, res) => {
   // get new author information
-  // res.render('pages/author-form')
+  console.log(req.body);
+
+  res.send(req.body, 200);
 });
 
 app.post('/authors/:id', (req, res) => {

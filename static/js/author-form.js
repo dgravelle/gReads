@@ -1,7 +1,7 @@
 
 var addAuthorForm = document.getElementById('add-author__form');
 var addBooksBtn = document.getElementById('addBooks');
-var addBooksInput = document.getElementById('booksInput');
+var booksInput = document.getElementById('booksInput');
 var booksWritten = document.getElementById('booksWritten');
 
 function addBookBlock(bookTitle) {
@@ -26,17 +26,18 @@ function addBookBlock(bookTitle) {
   newGrid.appendChild(leftCol);
   newGrid.appendChild(rightCol);
   booksWritten.appendChild(newGrid);
+  booksInput.parentNode.classList.remove('is-invalid');
 }
 
 addBooksBtn.addEventListener('click', function(e) {
   e.preventDefault();
 
-  if (addBooksInput.value === '' || addBooksInput.value === null) {
-    addBooksInput.parentNode.classList.add('is-invalid');
+  if (booksInput.value === '' || booksInput.value === null) {
+    booksInput.parentNode.classList.add('is-invalid');
   }
   else {
-    addBookBlock(addBooksInput.value);
-    addBooksInput.value = '';
+    addBookBlock(booksInput.value);
+    booksInput.value = '';
   }
 });
 
@@ -49,11 +50,55 @@ booksWritten.addEventListener('click', function(e) {
   }
 });
 
-addAuthorForm.addEventListener('submit', function(e) {
-  validateAuthorForm();
-  console.log('submitted');
-});
 
-function validateForm() {
-  
+  var title = document.getElementById('title');
+  var genre = document.getElementById('genre');
+  var bioImage = document.getElementById('bioImage');
+  var description = document.getElementById('description');
+  // var bookTitles = document.querySelector('name=bookTitle');
+
+  title.addEventListener('blur', function() {
+    if(title.value === '' || title.value === null) {
+      title.parentElement.classList.add('is-invalid');
+    }
+  });
+
+  genre.addEventListener('blur', function() {
+    if(this.value === '' || this.value === null) {
+      this.parentElement.classList.add('is-invalid');
+    }
+  });
+
+  bioImage.addEventListener('blur', function() {
+    var regUrl = /(https?:\/\/.*\.(?:png|jpg))/i;
+    console.log(!regUrl.test(this.value));
+    if (!regUrl.test(this.value)) {
+      this.parentElement.classList.add('is-invalid');
+    }
+  });
+
+  description.addEventListener('blur', function() {
+    if(description.value === '' || description.value === null) {
+      this.parentElement.classList.add('is-invalid');
+    }
+  });
+
+  booksInput.addEventListener('blur', function() {
+    console.log(this.value);
+    if (this.value === '' && document.querySelector('input[name=bookTitle]') === null) {
+      this.parentElement.classList.add('is-invalid');
+    }
+  });
+
+  addAuthorForm.addEventListener('submit', function() {
+
+    if (document.querySelector('input[name=bookTitle]') === null) {
+      this.parentElement.classList.add('is-invalid');
+    }
+  });
+
+function validateInput(input) {
+  if (input === null || input === '') {
+    input.parentElement.classList.add('is-invalid');
+  }
 }

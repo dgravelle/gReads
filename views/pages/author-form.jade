@@ -8,27 +8,27 @@ body
   main.main--add-author
     div.mdl-grid
       div.mdl-cell.mdl-cell--4-col.mdl-cell--4-col-tablet.mdl-cell--4-col-phone
-        form#add-author__form(action="/authors", method="POST")
+        form#add-author__form(action="/authors/new", method="POST")
         
             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
               input#title.mdl-textfield__input(type="text", name="title")
               label.mdl-textfield__label.g-reads-label--dark(for="title") Title
-              span.mdl-textfield__error Please enter a title/span
+              span.mdl-textfield__error Please enter a title
 
             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
               label.mdl-textfield__label.g-reads-label--dark(for="genre") Genre/label
               input#genre.mdl-textfield__input(type="text", name="genre")
-              span.mdl-textfield__error Please enter at least one genre/span
+              span.mdl-textfield__error Please enter at least one genre
 
             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-              input#coverImage.mdl-textfield__input(name="coverImage" type="text")
-              label.mdl-textfield__label.g-reads-label--dark(for="coverImage") Cover Image/label
-              span.mdl-textfield__error Please enter a url for a cover image
+              input#bioImage.mdl-textfield__input(name="bioImage" type="text")
+              label.mdl-textfield__label.g-reads-label--dark(for="bioImage") Portrait Image
+              span.mdl-textfield__error Please provide either a PNG or JPG for a portrait image
 
             div.mdl-textfield.mdl-js-textfield
               textarea#description.mdl-textfield__input(name="description", type="text")
               label.mdl-textfield__label.g-reads-label--dark(for="description") Description/label
-              span.mdl-textfield__error Please enter a description/span
+              span.mdl-textfield__error Please enter a description
             // insert script to add more authors to form
             div#booksWritten
 
@@ -36,14 +36,14 @@ body
               div.mdl-grid
                 div.mdl-cell.mdl-cell--10-col.mdl-cell--7-col-tablet.mdl-cell--3-col-phone
                   div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                    input#booksInput.mdl-textfield__input(name="booksInput", type="text")
+                    input#booksInput.mdl-textfield__input(type="text")
                     label.mdl-textfield__label.g-reads-label--dark(for="description") Book(s) written
-                    span.mdl-textfield__error Please enter a url for a cover image
+                    span.mdl-textfield__error Please enter at least one book title for this author
                 div.mdl-cell.mdl-cell--1-col.mdl-cell--1-col-tablet.mdl-cell--1-col-phone
                   button#addBooks.mdl-button.mdl-js-button.mdl-button--fab.mdl-js-ripple-effect
                     i.material-icons add
 
-                  span.mdl-textfield__error Please enter at least one author
+
 
             button#addAuthor.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--accent.mdl-js-ripple-effect(type="submit") Add Author
 

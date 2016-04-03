@@ -35,3 +35,6 @@
   padding-left: 0;
   padding-right: 0;
 }
+  .add-books-written .mdl-grid .mdl-cell:first-child {
+    margin: 0;
+  }
