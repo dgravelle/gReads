@@ -56,6 +56,7 @@ app.get('/authors/new', (req, res) => {
 app.post('/authors/new', (req, res) => {
   // get new author information
   console.log(req.body);
+  books().insert()
 
   res.send(req.body, 200);
 });

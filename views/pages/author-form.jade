@@ -11,24 +11,24 @@ body
         form#add-author__form(action="/authors/new", method="POST")
         
             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-              input#title.mdl-textfield__input(type="text", name="title")
-              label.mdl-textfield__label.g-reads-label--dark(for="title") Title
-              span.mdl-textfield__error Please enter a title
+              input#firstName.mdl-textfield__input(type="text", name="title")
+              label.mdl-textfield__label.g-reads-label--dark(for="title") First Name
+              span.mdl-textfield__error Please enter a first name
 
             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-              label.mdl-textfield__label.g-reads-label--dark(for="genre") Genre/label
-              input#genre.mdl-textfield__input(type="text", name="genre")
-              span.mdl-textfield__error Please enter at least one genre
+              label.mdl-textfield__label.g-reads-label--dark(for="genre") Last Name
+              input#lastName.mdl-textfield__input(type="text", name="genre")
+              span.mdl-textfield__error Please enter a last name
 
             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-              input#bioImage.mdl-textfield__input(name="bioImage" type="text")
-              label.mdl-textfield__label.g-reads-label--dark(for="bioImage") Portrait Image
-              span.mdl-textfield__error Please provide either a PNG or JPG for a portrait image
+              input#bioUrl.mdl-textfield__input(name="bioURL" type="text")
+              label.mdl-textfield__label.g-reads-label--dark(for="bioURL") Portrait URL
+              span.mdl-textfield__error Please provide a URL to an image
 
             div.mdl-textfield.mdl-js-textfield
-              textarea#description.mdl-textfield__input(name="description", type="text")
-              label.mdl-textfield__label.g-reads-label--dark(for="description") Description/label
-              span.mdl-textfield__error Please enter a description
+              textarea#biography.mdl-textfield__input(name="bipgraphy", type="text")
+              label.mdl-textfield__label.g-reads-label--dark(for="description") Biography
+              span.mdl-textfield__error Please enter a biography
             // insert script to add more authors to form
             div#booksWritten
 
@@ -37,7 +37,7 @@ body
                 div.mdl-cell.mdl-cell--10-col.mdl-cell--7-col-tablet.mdl-cell--3-col-phone
                   div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                     input#booksInput.mdl-textfield__input(type="text")
-                    label.mdl-textfield__label.g-reads-label--dark(for="description") Book(s) written
+                    label.mdl-textfield__label.g-reads-label--dark(for="booksInput") Book(s) written
                     span.mdl-textfield__error Please enter at least one book title for this author
                 div.mdl-cell.mdl-cell--1-col.mdl-cell--1-col-tablet.mdl-cell--1-col-phone
                   button#addBooks.mdl-button.mdl-js-button.mdl-button--fab.mdl-js-ripple-effect
