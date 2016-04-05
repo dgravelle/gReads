@@ -8,6 +8,10 @@ function books() {
     return knex('books');
 }
 
+function authors() {
+  return knex('authors');
+}
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(morgan('short'));
@@ -33,6 +37,22 @@ app.get('/books/new', (req, res) => {
   res.render('pages/book-form');
 });
 
+app.post('/books/new', (req, res) => {
+  // console.log(req.body);
+  const bookData = {
+    book_title: req.body.title,
+    book_genre: req.body.genre,
+    book_description: req.body.description,
+    book_cover_url: req.body.coverImage,
+    book_authors: req.body.authors
+  }
+  console.log(bookData);
+
+  books().insert(bookData).then(function(data) {
+    res.redirect('/books');
+  });
+});
+
 app.get('/books/:id/edit', (req, res) => {
   const id = req.params.id;
   books().where({ id: id}).first().then((book) => {
@@ -55,7 +75,17 @@ app.get('/authors/new', (req, res) => {
 
 app.post('/authors/new', (req, res) => {
   // get new author information
-  console.log(req.body);
+  // console.log(req.body);
+  // const authorData = {
+  //   first_name: req.body.
+  //   last_name:
+  //   book_genre:
+  //   portrait_url:
+  //   biography:
+  //
+  // }
+
+  authors().insert()
   books().insert()
 
   res.send(req.body, 200);

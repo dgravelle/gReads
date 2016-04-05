@@ -7,7 +7,7 @@ body
   main.main--add-book
     div.mdl-grid
       div.mdl-cell.mdl-cell--4-col.mdl-cell--4-col-tablet.mdl-cell--4-col-phone
-        form#add-book__form(action="/books", method="GET")
+        form#add-book__form(action="/books/new", method="POST")
         
             legend 
               h2 Add a book
@@ -51,4 +51,5 @@ body
 
   include ../partials/footer 
 
-  script(src="/static/js/book-form.js")
+  script(src="/static/js/add-book-form.js")
+  script(src="/static/js/client-validate-books.js")

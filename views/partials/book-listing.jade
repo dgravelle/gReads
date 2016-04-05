@@ -20,7 +20,9 @@ for book in books
 
 
         div.book-listing__author= book.book_authors
-          
+          //- ul
+          //-   each author in book.book_authors
+          //-     li= author
 
         div.book-listing__genre
           em= book.book_genre
