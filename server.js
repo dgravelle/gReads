@@ -1,9 +1,18 @@
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const knex = require('./db/knex');
+const connect = require('connect');
+const methodOverride = require('method-override');
 
+var books = require('./routes/books');
+var authors = require('./routes/authors');
+
+console.log('books', books);
+
+var app = express();
+
+app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(morgan('short'));
@@ -15,16 +24,22 @@ app.set('view engine', 'jade');
 app.use('/static', express.static(__dirname + '/static'));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
 
-const books = require('./routes/books');
-const authors = require('./routes/authors');
 
 app.get('/', (req, res) => {
   res.render('pages/index');
 });
 
-app.use('/books', books);
-app.use('/authors', authors);
+app.use(books);
+app.use(authors);
+
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
 app.listen(app.get('port'), () => {
   console.log('Listening on ', app.get('port'));
 });
+
+module.exports = app;

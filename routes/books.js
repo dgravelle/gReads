@@ -1,14 +1,21 @@
-const express = require('express');
-const router = express.Router();
-const knex = require('./db/knex');
+var express = require('express');
+var router = express.Router();
+var knex = require('../db/knex');
 
 function books() {
     return knex('books');
 }
 
+function books_authors() {
+  return knex('books_authors');
+}
+
 router.get('/books', (req, res) => {
-  books().select().then(function(data) {
-    res.render('pages/books', { books: data});
+  books().select().then(function(books) {
+    if(!books) {
+      console.error('books not found');
+    }
+    res.render('pages/books', { books: books});
   });
 });
 
@@ -19,17 +26,25 @@ router.get('/books/new', (req, res) => {
 router.post('/books/new', (req, res) => {
   // console.log(req.body);
   const bookData = {
-    book_title: req.body.title,
-    book_genre: req.body.genre,
-    book_description: req.body.description,
-    book_cover_url: req.body.coverImage,
-    book_authors: req.body.authors
+    title: req.body.title,
+    genre: req.body.genre,
+    description: req.body.description,
+    cover: req.body.coverImage,
   }
+  console.log(req.body.authors);
   console.log(bookData);
 
   books().insert(bookData).then(function(data) {
     res.redirect('/books');
   });
+
+  books_authors().insert()
+
+});
+
+router.delete('/books/:id/delete', (req, res) => {
+  console.log('deleting');
+  res.redirect('/books');
 });
 
 router.get('/books/:id/edit', (req, res) => {
@@ -39,6 +54,10 @@ router.get('/books/:id/edit', (req, res) => {
   });
 });
 
+
+
 router.put('/books/:id/edit/', (req, res) => {
   // update book
 });
+
+module.exports = router;

@@ -7,25 +7,26 @@ for book in books
       div.mdl-cell--8-col
         div.mdl-grid
           div.mdl-cell--10-col
-            a(href="/books/1")
-              h2.book-listing_h2= book.book_title 
+            a(href="/books/" + book.book_id )
+              h2.book-listing_h2= book.title 
 
           div.mdl-cell--2-col.mdl-cell--middle
             div.book-listing__controls
-              a(href="books/1/edit")
+              a(href="books/" + + book.book_id + "/edit")
                 i.material-icons mode_edit
-              a(href="books/1/delete")
-                i.material-icons remove_circle
+              form(method="post", action='/books/' + book.book_id + "/delete?_method=DELETE" )
+                button(type="submit")
+                  i.material-icons remove_circle
 
 
 
-        div.book-listing__author= book.book_authors
+        div.book-listing__author= book.authors
           //- ul
-          //-   each author in book.book_authors
+          //-   each author in book.authors
           //-     li= author
 
         div.book-listing__genre
-          em= book.book_genre
+          em= book.genre
             
         div.book-listing__description
-          p.book-listing__description__p= book.book_description
+          p.book-listing__description__p= book.description

@@ -18,11 +18,13 @@
   "homepage": "https://github.com/dgravelle/galvanize-reads#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
+    "connect": "^3.4.1",
     "ejs": "^2.4.1",
     "express": "^4.13.4",
     "jade": "^1.11.0",
     "knex": "^0.10.0",
     "material-design-lite": "^1.1.3",
+    "method-override": "^2.3.5",
     "morgan": "^1.7.0",
     "pg": "^4.5.2"
   }

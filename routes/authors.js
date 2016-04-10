@@ -1,6 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const knex = require('./db/knex');
+var express = require('express');
+var router = express.Router();
+var knex = require('../db/knex');
 
 function authors() {
   return knex('authors');
@@ -41,3 +41,5 @@ router.post('/authors/:id', (req, res) => {
 router.get('/authors/:id/edit', (req, res) => {
   res.render('pages/author-form');
 });
+
+module.exports = router;
