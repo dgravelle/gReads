@@ -1,4 +1,3 @@
-
 exports.up = function(knex, Promise) {
   return new Promise.all([
     knex.schema.createTable('books', function(table) {
@@ -14,6 +13,7 @@ exports.up = function(knex, Promise) {
         table.string('first_name');
         table.string('last_name');
         table.text('biography');
+        table.text('url');
     }),
 
     knex.schema.createTable('books_authors', function(table) {
@@ -24,15 +24,14 @@ exports.up = function(knex, Promise) {
       table.integer('book_id')
         .references('book_id')
         .inTable('books');
-      table.text('url')
     })
   ])
 };
 
 exports.down = function(knex, Promise) {
   return new Promise.all([
+    knex.schema.dropTable('books_authors'),
     knex.schema.dropTable('books'),
-    knex.schema.dropTable('authors'),
-    knex.schema.dropTable('books_authors')
+    knex.schema.dropTable('authors')
   ])
 };

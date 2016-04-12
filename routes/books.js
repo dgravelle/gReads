@@ -1,8 +1,10 @@
 'use strict';
 
-var express = require('express');
-var router = express.Router();
-var knex = require('../db/knex');
+const express = require('express');
+const router = express.Router();
+const knex = require('../db/knex');
+const validate = require('../lib/validations');
+const Queries = require('../lib/knex-queries');
 
 function books() {
     return knex('books');
@@ -21,7 +23,7 @@ router.get('/books', (req, res) => {
     if(!books) {
       console.error('books not found');
     }
-    res.render('pages/books', { books: books});
+    res.render('pages/books', { books: books });
   });
 });
 
@@ -37,47 +39,43 @@ router.post('/books/new', (req, res) => {
     description: req.body.description,
     cover: req.body.coverImage
   }
-  console.log(bookData);
 
-  books().select().where({ title: bookData.title })
-    .first().then((book) => {
-      if(!book) {
-        books().insert(bookData).then((book) => {
-          if(!book) {
-             return console.error('${ bookData.title } was not added');
-          }
-
-          req.body.authorsFirst.forEach((el) => {
-            console.log(el);
-            authors().where({ first_name: el }).first().then((author) => {
-              if(!author) {
-                console.log('could not id an author for this book');
-              }
-              books_authors().insert({ author_id: author.id, book_id: book.id }).then((data) => {
-                if(!data) {
-                  console.log('could not add to books_authors');
-                }
-              });
-            });
-          });
-          res.redirect('/books');
-        });
-      } else {
-        console.log('Looks like this book already exists in our records. \n Please enter a book with a different title.');
-        bookData.errors = 'Looks like this book already exists in our records. \n Please enter a book with a different title.';
-
-        res.render('pages/book-form', bookData);
-      }
-    });
-});
-
-router.get('/books/:id', (req, res) => {
-  const id = req.params.id;
-
-  books().select().where({ book_id: id }).then((books) => {
-    res.render('pages/books', { books: books });
+  // Check to see if entered book already exists in the db
+  validate.isBookDuplicate(bookData.title).then((result) => {
+    if (result) {
+      const error = 'Looks like this book already exists in our records. \n Please enter a book with a different title.';
+      return res.render('pages/book-form', { book: bookData, error: error });
+    }
   });
-});
+
+  // console.log(typeof req.body.authorsLast === 'string');
+  if (typeof req.body.authorsLast === 'string') {
+    var authorsLast = req.body.authorsLast.split();
+  }
+  else {
+    var authorsLast = req.body.authorsLast;
+  }
+
+  // console.log(bookData);
+  console.log(authorsLast);
+
+  Queries.Books.insertBook(bookData)
+    .then((book) => {
+      if(!book) {
+         return console.error(`${bookData.title} was not added`);
+      }
+      console.log(`${bookData.title} added to books`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  Queries.Authors.getAuthorsByLastName(authorsLast).then(authors => {
+    console.log(authors);
+  });
+
+    // res.redirect('/books');
+  });
 
 router.delete('/books/:id/delete', (req, res) => {
   res.redirect('/books');

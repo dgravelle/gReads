@@ -17,3 +17,18 @@ INSERT INTO authors (first_name, last_name, biography, url) VALUES
 ('Allen B.','Downey','Allen Downey is a Professor of Computer Science at Olin College of Engineering. He has taught at Wellesley College, Colby College and U.C. Berkeley. He has a Ph.D. in Computer Science from U.C. Berkeley and Master''s and Bachelor''s degrees from MIT.','https://s3-us-west-2.amazonaws.com/assessment-images/galvanize_reads/photos/allen_downey.jpg'),
 ('Bonnie','Eisenman','Bonnie Eisenman is a software engineer at Codecademy, with previous experience at Fog Creek Software and Google. She has spoken at several conferences on topics ranging from ReactJS to musical programming and Arduinos. In her spare time, she enjoys building electronic musical instruments, tinkering with hardware projects, and laser-cutting chocolate. Find her on Twitter as @brindelle.', 'https://s3-us-west-2.amazonaws.com/assessment-images/galvanize_reads/photos/bonnie_eisenman.jpg'),
 ('Kyle','Simpson','Kyle Simpson is an Open Web Evangelist who''s passionate about all things JavaScript. He''s an author, workshop trainer, tech speaker, and OSS contributor/leader.', 'https://s3-us-west-2.amazonaws.com/assessment-images/galvanize_reads/photos/kyle_simpson.jpg');
+
+INSERT INTO books_authors (author_id, book_id)
+VALUES (1, 1),
+(2, 1),
+(3, 1),
+(6, 4),
+(6, 5),
+(6, 6);
+
+
+Kyle Simpson, auth_id=6, book_id = [4,5,6]
+
+Alex Martelli, auth_id=1, book_id = 1,
+Anna M, Ravenscroft id=2, book_id = 1,
+Steve Holden auth_id, book_id = 1

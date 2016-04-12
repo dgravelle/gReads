@@ -32,7 +32,8 @@
     newGrid.appendChild(leftCol);
     newGrid.appendChild(rightCol);
     authorsAdded.appendChild(newGrid);
-    authorsInput.parentNode.classList.remove('is-invalid');
+    authorsFirstInput.parentNode.classList.remove('is-invalid');
+    authorsLastInput.parentNode.classList.remove('is-invalid');
   }
 
   authorsAdded.addEventListener('click', function(e) {

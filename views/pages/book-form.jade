@@ -7,6 +7,9 @@ body
   main.main--add-book
     div.mdl-grid
       div.mdl-cell.mdl-cell--4-col.mdl-cell--4-col-tablet.mdl-cell--4-col-phone
+        if error
+          div.alert--error= error
+            
         form#add-book__form(action="/books/new", method="POST")
         
             legend 
