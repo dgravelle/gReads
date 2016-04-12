@@ -1,3 +1,7 @@
+main.main.main--books {
+    padding: 30px 90px;
+}
+
 .g-reads__nav--dark {
   background-color: #484848;
   color: white;
@@ -38,3 +42,12 @@
   .add-books-written .mdl-grid .mdl-cell:first-child {
     margin: 0;
   }
+
+.book-listing .img-container {
+  padding: 16px;
+}
+
+.book-listing .img-container img.book-listing__img {
+
+  max-width: 100%;
+}

@@ -1,5 +1,7 @@
 (function(){
   var addBookForm = document.getElementById('add-book__form');
+  var authorsFirstInput = document.getElementById('authorsFirstInput');
+  var authorsLastInput = document.getElementById('authorsLastInput');
   var title = document.getElementById('title');
   var genre = document.getElementById('genre');
   var coverImage = document.getElementById('coverImage');
@@ -31,7 +33,13 @@
     }
   });
 
-  authorsInput.addEventListener('blur', function() {
+  authorsFirstInput.addEventListener('blur', function() {
+    if (this.value === '' && document.querySelector('input[name=authors]') === null) {
+      this.parentElement.classList.add('is-invalid');
+    }
+  });
+
+  authorsLastInput.addEventListener('blur', function() {
     if (this.value === '' && document.querySelector('input[name=authors]') === null) {
       this.parentElement.classList.add('is-invalid');
     }

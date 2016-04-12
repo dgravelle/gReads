@@ -7,7 +7,9 @@ function authors() {
 }
 
 router.get('/authors', (req, res) => {
-  res.render('pages/authors');
+  authors().select().then((authors) => {
+    res.render('pages/authors', { authors: authors });
+  });
 });
 
 router.get('/authors/new', (req, res) => {

@@ -8,8 +8,6 @@ const methodOverride = require('method-override');
 var books = require('./routes/books');
 var authors = require('./routes/authors');
 
-console.log('books', books);
-
 var app = express();
 
 app.use(methodOverride('_method'));

@@ -13,33 +13,45 @@ body
               h2 Add a book
             
             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-              input.mdl-textfield__input(id="title", type="text", name="title") 
+              input.mdl-textfield__input(id="title", type="text", name="title" value=book ? book.title : '') 
               label.mdl-textfield__label.g-reads-label--dark(for="title")  Title
               span.mdl-textfield__error Please enter a title
 
             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
               label.mdl-textfield__label.g-reads-label--dark(for="genre") Genre
-              input.mdl-textfield__input(id="genre", type="text", name="genre")
+              input.mdl-textfield__input(id="genre", type="text", name="genre" value=book ? book.genre : '')
               span.mdl-textfield__error Please enter at least one genre
 
             div.mdl-textfield.mdl-js-textfield
-              input.mdl-textfield__input(id="coverImage", name="coverImage" type="text")
+              input.mdl-textfield__input(id="coverImage", name="coverImage" type="text" value=book ? book.cover : '')
               label.mdl-textfield__label.g-reads-label--dark(for="coverImage") Cover Image
               span.mdl-textfield__error Please enter a url for a cover image
 
             div.mdl-textfield.mdl-js-textfield
               textarea.mdl-textfield__input(id="description", name="description", type="text")
+                if book
+                   =book.description
               label.mdl-textfield__label.g-reads-label--dark(for="description") Description
               span.mdl-textfield__error Please enter a description
 
             div#authors-added
+              //- if book
+              //-   for author in book.authors
+              //-     input(name=authors value=author)
 
             div.add-authors  
+              legend 
+                h3 
+                  small Add Authors
               div.mdl-grid
                 div.mdl-cell.mdl-cell--10-col.mdl-cell--7-col-tablet.mdl-cell--3-col-phone
                   div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                    input#authorsInput.mdl-textfield__input(type="text")
-                    label.mdl-textfield__label.g-reads-label--dark(for="authorsInput") Author(s)
+                    input#authorsFirstInput.mdl-textfield__input(type="text")
+                    label.mdl-textfield__label.g-reads-label--dark(for="authorsFirstInput") Author First Name
+                  
+                  div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                    input#authorsLastInput.mdl-textfield__input(type="text")
+                    label.mdl-textfield__label.g-reads-label--dark(for="authorsLastInput") Author Last Name
 
                 div.mdl-cell.mdl-cell--1-col.mdl-cell--1-col-tablet.mdl-cell--1-col-phone
                   button#addAuthors.mdl-button.mdl-js-button.mdl-button--fab.mdl-js-ripple-effect

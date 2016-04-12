@@ -24,6 +24,7 @@ exports.up = function(knex, Promise) {
       table.integer('book_id')
         .references('book_id')
         .inTable('books');
+      table.text('url')
     })
   ])
 };

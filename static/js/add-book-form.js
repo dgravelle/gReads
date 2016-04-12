@@ -1,27 +1,34 @@
 (function() {
   var addAuthorsBtn = document.getElementById('addAuthors');
-  var authorsInput = document.getElementById('authorsInput');
+  var authorsFirstInput = document.getElementById('authorsFirstInput');
+  var authorsLastInput = document.getElementById('authorsLastInput');
   var authorsAdded = document.getElementById('authors-added');
 
-  function addBookBlock(bookTitle) {
+  function addAuthorBlock(authorFirst, authorLast) {
     function newEl(el) {
       return document.createElement(el);
     }
     var newGrid = newEl("div");
     var leftCol = newEl("div");
     var rightCol = newEl("div");
-    var input = newEl("input");
+    var inputFirst = newEl("input");
+    var inputLast = newEl("input");
 
-    input.setAttribute("value", bookTitle);
-    input.setAttribute("name", "authors");
-    input.className = "mdl-textfield__input";
+    inputFirst.setAttribute("value", authorFirst);
+    inputFirst.setAttribute("name", "authorsFirst");
+    inputFirst.className = "mdl-textfield__input";
+
+    inputLast.setAttribute("value", authorLast);
+    inputLast.setAttribute("name", "authorsLast");
+    inputLast.className = "mdl-textfield__input";
 
     newGrid.className = "mdl-grid";
     leftCol.className = "mdl-cell mdl-cell--10-col mdl-cell--7-col-tablet mdl-cell--3-col-phone";
     rightCol.className = "mdl-cell mdl-cell--1-col mdl-cell--1-col-tablet mdl-cell--1-col-phone";
 
     rightCol.innerHTML = "<a href=''><i class='material-icons remove-author'>clear</i></a>";
-    leftCol.appendChild(input);
+    leftCol.appendChild(inputFirst);
+    leftCol.appendChild(inputLast);
     newGrid.appendChild(leftCol);
     newGrid.appendChild(rightCol);
     authorsAdded.appendChild(newGrid);
@@ -39,13 +46,15 @@
 
   addAuthorsBtn.addEventListener('click', function(e) {
     e.preventDefault();
+    console.log('adding authors');
 
-    if (authorsInput.value === '' || authorsInput.value === null) {
-      authorsInput.parentNode.classList.add('is-invalid');
+    if (authorsFirstInput.value === '' || authorsFirstInput.value === null) {
+      authorsFirstInput.parentNode.classList.add('is-invalid');
     }
     else {
-      addBookBlock(authorsInput.value);
-      authorsInput.value = '';
+      addAuthorBlock(authorsFirstInput.value, authorsLastInput.value);
+      authorsFirstInput.value = '';
+      authorsLastInput.value = '';
     }
   });
 })();

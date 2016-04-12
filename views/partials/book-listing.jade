@@ -2,7 +2,8 @@ for book in books
   section.book-listing
     div.mdl-grid
       div.mdl-cell--4-col
-        img.book-listing__img(src="https://placehold.it/256x256" alt="")
+        div.img-container  
+          img.book-listing__img(src=book ? book.cover : "https://placehold.it/256x256" alt="")
 
       div.mdl-cell--8-col
         div.mdl-grid
