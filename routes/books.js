@@ -71,6 +71,14 @@ router.post('/books/new', (req, res) => {
     });
 });
 
+router.get('/books/:id', (req, res) => {
+  const id = req.params.id;
+
+  books().select().where({ book_id: id }).then((books) => {
+    res.render('pages/books', { books: books });
+  });
+});
+
 router.delete('/books/:id/delete', (req, res) => {
   res.redirect('/books');
 });

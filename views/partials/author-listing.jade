@@ -7,15 +7,16 @@ for author in authors
       div.mdl-cell--8-col 
         div.mdl-grid 
           div.mdl-cell--10-col 
-            a(href="/author/" + author.auth_id) 
+            a(href="/authors/" + author.auth_id)
               h2.author-listing_h2= author.first_name + " " + author.last_name
 
           div.mdl-cell--2-col.mdl-cell--middle 
             div.author-listing__controls 
-              a(href="authors/" + author.auth_id + "/edit")  
-                i.material-icons remove_edit
-              a(href="authors/" + author.auth_id + "/delete")  
-                i.material-icons remove_circle 
+              a(href="authors/" + author.auth_id + "/edit")
+                i.material-icons mode_edit
+              form(method="post", action='/authors/' + author.auth_id + "/delete?_method=DELETE" )
+                button.btn--delete(type="submit")
+                  i.material-icons remove_circle
                
         div.author-listing__bio 
           p.author-listing__bio= author.biography

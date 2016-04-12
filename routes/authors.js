@@ -8,6 +8,7 @@ function authors() {
 
 router.get('/authors', (req, res) => {
   authors().select().then((authors) => {
+    // console.log(authors);
     res.render('pages/authors', { authors: authors });
   });
 });
@@ -35,9 +36,13 @@ router.post('/authors/new', (req, res) => {
   res.send(req.body, 200);
 });
 
-router.post('/authors/:id', (req, res) => {
-  // get new author information
-  res.render('pages/author-listing');
+router.get('/authors/:id', (req, res) => {
+  const id = req.params.id;
+
+  authors().select().where({ auth_id: id }).then((authors) => {
+    console.log(authors);
+    res.render('pages/authors', { authors: authors });
+  });
 });
 
 router.get('/authors/:id/edit', (req, res) => {
