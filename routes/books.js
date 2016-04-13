@@ -6,23 +6,24 @@ const knex = require('../db/knex');
 const validate = require('../lib/validations');
 const Queries = require('../lib/knex-queries');
 
-function books() {
-    return knex('books');
-}
-
-function authors() {
-    return knex('authors');
-}
-
-function books_authors() {
-  return knex('books_authors');
-}
-
 router.get('/books', (req, res) => {
-  books().select().then(function(books) {
+  Queries.Books.getAllBooks().then(function(books) {
     if(!books) {
       console.error('books not found');
     }
+    // console.log(books);
+    books.forEach((book) => {
+      // console.log(book.book_id);
+      Queries.Books_Authors.getAuthorsByBookId(book.book_id).then((ids) => {
+        console.log('ids: ', ids);
+        ids.forEach((id) => {
+          console.log(id.author_id);
+          Queries.Authors.getAuthorById(id.author_id).then((author) => {
+              console.log('author: ',author);
+          });
+        })
+      });
+    });
     res.render('pages/books', { books: books });
   });
 });
