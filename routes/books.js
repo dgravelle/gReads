@@ -7,24 +7,25 @@ const validate = require('../lib/validations');
 const Queries = require('../lib/knex-queries');
 
 router.get('/books', (req, res) => {
-  Queries.Books.getAllBooks().then(function(books) {
+  Queries.Books.getAllBooks().then((books) => {
     if(!books) {
       console.error('books not found');
     }
-    // console.log(books);
-    books.forEach((book) => {
-      // console.log(book.book_id);
-      Queries.Books_Authors.getAuthorsByBookId(book.book_id).then((ids) => {
-        console.log('ids: ', ids);
-        ids.forEach((id) => {
-          console.log(id.author_id);
-          Queries.Authors.getAuthorById(id.author_id).then((author) => {
-              console.log('author: ',author);
-          });
-        })
-      });
+
+    var promises = [];
+
+    for (let i = 0; i < books.length; i++) {
+      promises.push(Queries.Books_Authors.getAuthorsByBookId(books[i].book_id));
+    }
+
+    Promise.all(promises).then((authors) => {
+      for (let i = 0; i < books.length; i++) {
+        books[i].authors = authors[i];
+        console.log(books[i].authors);
+      }
+
+      res.render('pages/books', { books: books });
     });
-    res.render('pages/books', { books: books });
   });
 });
 
@@ -76,10 +77,22 @@ router.post('/books/new', (req, res) => {
   });
 
     // res.redirect('/books');
+});
+
+router.get('/books/:id', (req, res) => {
+  const id = req.params.id;
+  Queries.Books.getBookById(id).then((books) => {
+      // console.log(book);
+      Queries.Books_Authors.getAuthorsByBookId(id).then((authors) => {
+        books[0].authors = authors;
+        console.log('book.authors: ', books[0].authors);
+        res.render('pages/books', { books: books });
+      });
   });
+});
 
 router.delete('/books/:id/delete', (req, res) => {
-  res.redirect('/books');
+  res.send('not done yet dude')
 });
 
 router.get('/books/:id/edit', (req, res) => {

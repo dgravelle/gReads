@@ -19,10 +19,11 @@ for book in books
                 button.btn--delete(type="submit")
                   i.material-icons remove_circle
 
-        div.book-listing__author= book.authors
-          //- ul
-          //-   each author in book.authors
-          //-     li= author
+        div.book-listing__author
+          ul
+            each author in book.authors
+              li
+                a(href="/authors/" + author.auth_id)= (author.first_name + ' ' + author.last_name)
 
         div.book-listing__genre
           em= book.genre
