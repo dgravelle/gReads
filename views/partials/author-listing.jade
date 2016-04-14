@@ -23,6 +23,6 @@ for author in authors
           
         div.author-listing__books 
           ul.author-listing__books__ul 
-            li.author-listing__books__li Book 1
-            li.author-listing__books__li Book 2
-            li.author-listing__books__li Book 3
+            each book in author.booksWritten
+              li.author-listing__books__li
+                a(href="/books/" + book.book_id)= book.title

@@ -1,15 +1,31 @@
-var express = require('express');
-var router = express.Router();
-var knex = require('../db/knex');
+'use strict';
 
-function authors() {
-  return knex('authors');
-}
+const express = require('express');
+const router = express.Router();
+const knex = require('../db/knex');
+const validate = require('../lib/validations');
+const Queries = require('../lib/knex-queries');
 
 router.get('/authors', (req, res) => {
-  authors().select().then((authors) => {
-    // console.log(authors);
-    res.render('pages/authors', { authors: authors });
+  Queries.Authors.getAuthors().then((authors) => {
+    if (!authors)
+      console.error('could not retrieve authors');
+
+    var promises = [];
+
+    for (let i = 0; i < authors.length; i++) {
+      promises.push(Queries.Books_Authors.getBooksByAuthorId(authors[i].auth_id));
+    }
+
+    Promise.all(promises).then((books) => {
+      for (var i = 0; i < authors.length; i++) {
+        authors[i].booksWritten = books[i];
+      }
+      res.render('pages/authors', { authors: authors });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   });
 });
 
