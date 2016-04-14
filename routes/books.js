@@ -82,12 +82,11 @@ router.post('/books/new', (req, res) => {
 router.get('/books/:id', (req, res) => {
   const id = req.params.id;
   Queries.Books.getBookById(id).then((books) => {
-      // console.log(book);
-      Queries.Books_Authors.getAuthorsByBookId(id).then((authors) => {
-        books[0].authors = authors;
-        console.log('book.authors: ', books[0].authors);
-        res.render('pages/books', { books: books });
-      });
+    Queries.Books_Authors.getAuthorsByBookId(id).then((authors) => {
+      books[0].authors = authors;
+      console.log('book.authors: ', books[0].authors);
+      res.render('pages/books', { books: books });
+    });
   });
 });
 

@@ -55,9 +55,11 @@ router.post('/authors/new', (req, res) => {
 router.get('/authors/:id', (req, res) => {
   const id = req.params.id;
 
-  authors().select().where({ auth_id: id }).then((authors) => {
-    console.log(authors);
-    res.render('pages/authors', { authors: authors });
+  Queries.Authors.getAuthorById(id).then((authors) => {
+    Queries.Books_Authors.getBooksByAuthorId(id).then((books) => {
+      authors[0].booksWritten = books;
+      res.render('pages/authors', { authors: authors });
+    });
   });
 });
 
