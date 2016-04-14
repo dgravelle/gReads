@@ -9,11 +9,17 @@ body
       div.mdl-cell.mdl-cell--4-col.mdl-cell--4-col-tablet.mdl-cell--4-col-phone
         if error
           div.alert--error= error
-            
-        form#add-book__form(action="/books/new", method="POST")
         
-            legend 
-              h2 Add a book
+        if alert
+          div.alert--success= alert
+            
+        form#add-book__form(action= book ? "/books/" + book.book_id + "/edit?_method=PUT" : "/books/new", method="POST")
+        
+            legend
+              if book 
+                h2 Edit #{book.title}
+              else
+                h2 Add a book
             
             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
               input.mdl-textfield__input(id="title", type="text", name="title" value=book ? book.title : '') 
@@ -38,10 +44,17 @@ body
               span.mdl-textfield__error Please enter a description
 
             div#authors-added
-              //- if book
-              //-   for author in book.authors
-              //-     input(name=authors value=author)
-
+              if book
+                for author in book.authors
+                  div.mdl-grid
+                    div.mdl-cell.mdl-cell--10-col.mdl-cell--7-col-tablet.mdl-cell--3-col-phone
+                      input.mdl-textfield__input(name="authorsFirst", value=author.first_name)
+                      input.mdl-textfield__input(name="authorsLast", value=author.last_name)
+                    
+                    div.mdl-cell.mdl-cell--1-col.mdl-cell--1-col-tablet.mdl-cell--1-col-phone
+                      a(href="")
+                        i.material-icons.remove-author clear
+                    
             div.add-authors  
               legend 
                 h3 
@@ -62,7 +75,7 @@ body
 
                   span.mdl-textfield__error Please enter at least one author
 
-            button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--accent.mdl-js-ripple-effect(type="submit") Add Book
+            button#bookSubmitBtn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--accent.mdl-js-ripple-effect(type="submit") Add Book
 
   include ../partials/footer 
 

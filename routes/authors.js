@@ -64,7 +64,15 @@ router.get('/authors/:id', (req, res) => {
 });
 
 router.get('/authors/:id/edit', (req, res) => {
-  res.render('pages/author-form');
+  const id = req.params.id;
+
+  Queries.Authors.getAuthorById(id).then((authors) => {
+    Queries.Books_Authors.getBooksByAuthorId(id).then((books) => {
+      authors[0].booksWritten = books;
+      console.log(authors);
+      res.render('pages/author-form', { author: authors[0] });
+    });
+  });
 });
 
 module.exports = router;

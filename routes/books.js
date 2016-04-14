@@ -44,39 +44,25 @@ router.post('/books/new', (req, res) => {
 
   // Check to see if entered book already exists in the db
   validate.isBookDuplicate(bookData.title).then((result) => {
+    console.log('validation result: ', result);
     if (result) {
       const error = 'Looks like this book already exists in our records. \n Please enter a book with a different title.';
       return res.render('pages/book-form', { book: bookData, error: error });
     }
   });
 
-  // console.log(typeof req.body.authorsLast === 'string');
-  if (typeof req.body.authorsLast === 'string') {
-    var authorsLast = req.body.authorsLast.split();
-  }
-  else {
-    var authorsLast = req.body.authorsLast;
-  }
-
-  // console.log(bookData);
-  console.log(authorsLast);
-
   Queries.Books.insertBook(bookData)
     .then((book) => {
       if(!book) {
          return console.error(`${bookData.title} was not added`);
       }
-      console.log(`${bookData.title} added to books`);
+
+      console.log('book id added to books table: ', book[0].book_id);
     })
     .catch((err) => {
       console.log(err);
+      res.render('pages/book-form', { error: err });
     });
-
-  Queries.Authors.getAuthorsByLastName(authorsLast).then(authors => {
-    console.log(authors);
-  });
-
-    // res.redirect('/books');
 });
 
 router.get('/books/:id', (req, res) => {
@@ -97,13 +83,35 @@ router.delete('/books/:id/delete', (req, res) => {
 router.get('/books/:id/edit', (req, res) => {
   const id = req.params.id;
 
-  books().where({ book_id: id }).first().then((book) => {
-      res.render('pages/book-form', { book: book });
+  Queries.Books.getBookById(id).then((books) => {
+    Queries.Books_Authors.getAuthorsByBookId(id).then((authors) => {
+      books[0].authors = authors;
+      console.log('book.authors: ', books[0].authors);
+      res.render('pages/book-form', { book: books[0] });
+    });
   });
 });
 
 router.put('/books/:id/edit/', (req, res) => {
-  // update book
+  const id = req.params.id;
+  let bookData = {
+    title: req.body.title,
+    genre: req.body.genre,
+    description: req.body.description,
+    cover: req.body.coverImage
+  }
+
+  console.log('putting');
+  console.log(bookData);
+
+  Queries.Books.updateBook(id, bookData).then((books) => {
+    Queries.Books_Authors.getAuthorsByBookId(id).then((authors) => {
+      console.log(authors);
+      books[0].authors = authors;
+      const alert = `${books[0].title} successfully updated`;
+      res.render('pages/books', { books: books, alert: alert });
+    });
+  });
 });
 
 module.exports = router;
