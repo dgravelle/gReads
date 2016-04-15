@@ -7,6 +7,10 @@ body
   div.mdl-layout.mdl-js-layout.mdl-layout--fixed-header
     include ../partials/nav
     
+    if alert
+      div.alert--success
+        p= alert
+    
     section.main.main--home
       div.mdl-grid
         div.mdl-cell.mdl-cell--6-col.mdl-cell--middle

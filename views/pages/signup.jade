@@ -1,0 +1,33 @@
+doctype html
+html(lang=en)
+  include ../partials/head
+  
+body
+  include ../partials/nav
+  
+  main.main--login
+    div.mdl-grid 
+      div.mdl-cell--4-col 
+        
+        if error
+          div.alert--error
+            p.alert= error
+      
+        form.login(action="/signup", method="POST")
+          legend 
+            h1 Create an account
+          
+          div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+            input.mdl-textfield__input(id="emailLogin", type="text", name="email" value=attemptInfo ? attemptInfo.email : '') 
+            label.mdl-textfield__label.g-reads-label--dark(for="emailLogin")  Email
+            span.mdl-textfield__error Please enter the email address associated with your account.
+
+          div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+            input.mdl-textfield__input(id="passwordLogin", type="password", name="password" value=attemptInfo ? attemptInfo.password : '') 
+            label.mdl-textfield__label.g-reads-label--dark(for="passwordLogin")  Password
+            span.mdl-textfield__error Please enter your password
+          br
+          button#loginBtn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--accent.mdl-js-ripple-effect(type="submit") Login
+
+include ../partials/footer
+          

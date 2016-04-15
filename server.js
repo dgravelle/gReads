@@ -7,6 +7,8 @@ const methodOverride = require('method-override');
 
 var books = require('./routes/books');
 var authors = require('./routes/authors');
+var users = require('./routes/users');
+var auth = require('./routes/auth');
 
 var app = express();
 
@@ -28,6 +30,8 @@ app.get('/', (req, res) => {
 
 app.use(books);
 app.use(authors);
+app.use(users);
+app.use(auth);
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

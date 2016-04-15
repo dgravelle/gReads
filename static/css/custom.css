@@ -2,10 +2,29 @@ main.main.main--books {
     padding: 30px 90px;
 }
 
+/*
+
+Navigation
+
+*/
 .g-reads__nav--dark {
   background-color: #484848;
   color: white;
 }
+
+.g-reads__header a, .g-reads__header i {
+  color: white;
+}
+
+.g-reads__header .mdl-layout__header-row .mdl-navigation__link {
+  color: white;
+}
+
+/*
+
+Media on main page
+
+*/
 
 .mdl-card__media.main--home-card__media {
   background: none;
