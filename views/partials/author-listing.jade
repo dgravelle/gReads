@@ -9,14 +9,15 @@ for author in authors
           div.mdl-cell--10-col 
             a(href="/authors/" + author.auth_id)
               h2.author-listing_h2= author.first_name + " " + author.last_name
-
-          div.mdl-cell--2-col.mdl-cell--middle 
-            div.author-listing__controls 
-              a(href="authors/" + author.auth_id + "/edit")
-                i.material-icons mode_edit
-              form(method="post", action='/authors/' + author.auth_id + "/delete?_method=DELETE" )
-                button.btn--delete(type="submit")
-                  i.material-icons remove_circle
+          
+          if user
+            div.mdl-cell--2-col.mdl-cell--middle 
+              div.author-listing__controls 
+                a(href="authors/" + author.auth_id + "/edit")
+                  i.material-icons mode_edit
+                form(method="post", action='/authors/' + author.auth_id + "/delete?_method=DELETE" )
+                  button.btn--delete(type="submit")
+                    i.material-icons remove_circle
                
         div.author-listing__bio 
           p.author-listing__bio= author.biography

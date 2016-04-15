@@ -6,6 +6,14 @@ const knex = require('../db/knex');
 const validate = require('../lib/validations');
 const Queries = require('../lib/knex-queries');
 
+function isLoggedIn (req, res, next) {
+  console.log('ping');
+  if (!req.session.userId) {
+    return res.redirect('/')
+  }
+  next()
+}
+
 router.get('/books', (req, res) => {
   Queries.Books.getAllBooks().then((books) => {
     if(!books) {
@@ -21,7 +29,7 @@ router.get('/books', (req, res) => {
     Promise.all(promises).then((authors) => {
       for (let i = 0; i < books.length; i++) {
         books[i].authors = authors[i];
-        console.log(books[i].authors);
+        // console.log(books[i].authors);
       }
 
       res.render('pages/books', { books: books });
@@ -76,11 +84,11 @@ router.get('/books/:id', (req, res) => {
   });
 });
 
-router.delete('/books/:id/delete', (req, res) => {
+router.delete('/books/:id/delete', isLoggedIn, (req, res) => {
   res.send('not done yet dude')
 });
 
-router.get('/books/:id/edit', (req, res) => {
+router.get('/books/:id/edit', isLoggedIn, (req, res) => {
   const id = req.params.id;
 
   Queries.Books.getBookById(id).then((books) => {

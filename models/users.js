@@ -23,11 +23,11 @@ Users.authenticateUser = (email, password, callback) => {
     if (!user) {
       return callback('Sorry, that email and password does not match');
     }
-    brcypt.compare(password, user.password_digest, (err, res) => {
-      if(err || !res) {
+    bcrypt.compare(password, user.password_digest, (err, res) => {
+      if (err || !res) {
         return callback('Sorry, that email and password does not match');
       }
-      callback(undefined, user)
+      callback(undefined, user);
     });
   });
 }

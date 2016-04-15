@@ -6,6 +6,14 @@ const knex = require('../db/knex');
 const validate = require('../lib/validations');
 const Queries = require('../lib/knex-queries');
 
+function isLoggedIn (req, res, next) {
+  console.log('ping');
+  if (!req.session.userId) {
+    return res.redirect('/')
+  }
+  next()
+}
+
 router.get('/authors', (req, res) => {
   Queries.Authors.getAuthors().then((authors) => {
     if (!authors)
@@ -63,7 +71,7 @@ router.get('/authors/:id', (req, res) => {
   });
 });
 
-router.get('/authors/:id/edit', (req, res) => {
+router.get('/authors/:id/edit', isLoggedIn, (req, res) => {
   const id = req.params.id;
 
   Queries.Authors.getAuthorById(id).then((authors) => {
