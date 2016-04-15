@@ -7,14 +7,19 @@ const validate = require('../lib/validations');
 const Queries = require('../lib/knex-queries');
 
 function isLoggedIn (req, res, next) {
-  console.log('ping');
   if (!req.session.userId) {
-    return res.redirect('/')
+    res.user = false;
+    res.redirect('/');
   }
-  next()
+  else {
+    res.user = true;
+    next()
+  }
 }
 
-router.get('/authors', (req, res) => {
+router.get('/authors', isLoggedIn, (req, res) => {
+  const user = res.user;
+
   Queries.Authors.getAuthors().then((authors) => {
     if (!authors)
       console.error('could not retrieve authors');

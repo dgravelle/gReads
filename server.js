@@ -32,9 +32,22 @@ app.use(session({
   keys: [process.env.SESSION_KEY]
 }));
 
+function isLoggedIn (req, res, next) {
+  console.log(req.session);
+  if (!req.session.userId) {
+    res.user = false;
+    next();
+  }
+  else {
+    res.user = true;
+    next()
+  }
+}
 
-app.get('/', (req, res) => {
-  res.render('pages/index');
+app.get('/', isLoggedIn, (req, res) => {
+  const user = res.user;
+  console.log(user);
+  res.render('pages/index', { user: user });
 });
 
 app.use(books);

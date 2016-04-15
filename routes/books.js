@@ -7,14 +7,19 @@ const validate = require('../lib/validations');
 const Queries = require('../lib/knex-queries');
 
 function isLoggedIn (req, res, next) {
-  console.log('ping');
   if (!req.session.userId) {
-    return res.redirect('/')
+    res.user = false;
+    next();
   }
-  next()
+  else {
+    res.user = true;
+    next()
+  }
 }
 
-router.get('/books', (req, res) => {
+router.get('/books', isLoggedIn, (req, res) => {
+  const user = res.user;
+  console.log(user);
   Queries.Books.getAllBooks().then((books) => {
     if(!books) {
       console.error('books not found');
@@ -32,7 +37,7 @@ router.get('/books', (req, res) => {
         // console.log(books[i].authors);
       }
 
-      res.render('pages/books', { books: books });
+      res.render('pages/books', { books: books, user: user });
     });
   });
 });
@@ -42,7 +47,6 @@ router.get('/books/new', (req, res) => {
 });
 
 router.post('/books/new', (req, res) => {
-  // console.log(req.body);
   let bookData = {
     title: req.body.title,
     genre: req.body.genre,
