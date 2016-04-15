@@ -9,7 +9,7 @@ const Queries = require('../lib/knex-queries');
 function isLoggedIn (req, res, next) {
   if (!req.session.userId) {
     res.user = false;
-    res.redirect('/');
+    next();
   }
   else {
     res.user = true;
@@ -34,7 +34,7 @@ router.get('/authors', isLoggedIn, (req, res) => {
       for (var i = 0; i < authors.length; i++) {
         authors[i].booksWritten = books[i];
       }
-      res.render('pages/authors', { authors: authors });
+      res.render('pages/authors', { authors: authors, user: user });
     })
     .catch((err) => {
       console.log(err);
