@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const app = express();
 const router = express.Router();
 const knex = require('../db/knex');
 const validate = require('../lib/validations');
@@ -16,6 +17,8 @@ function isLoggedIn (req, res, next) {
     next()
   }
 }
+
+app.use('/', isLoggedIn)
 
 router.get('/books', isLoggedIn, (req, res) => {
   const user = res.user;
@@ -79,6 +82,7 @@ router.post('/books/new', (req, res) => {
 
 router.get('/books/:id', (req, res) => {
   const id = req.params.id;
+
   Queries.Books.getBookById(id).then((books) => {
     Queries.Books_Authors.getAuthorsByBookId(id).then((authors) => {
       books[0].authors = authors;
@@ -89,7 +93,12 @@ router.get('/books/:id', (req, res) => {
 });
 
 router.delete('/books/:id/delete', isLoggedIn, (req, res) => {
-  res.send('not done yet dude')
+  const id = req.params.id;
+
+  Queries.Books.delete(id).then(() => {
+    const alert = ''
+    res.render('pages/books', { alert: alert });
+  });
 });
 
 router.get('/books/:id/edit', isLoggedIn, (req, res) => {
@@ -104,7 +113,7 @@ router.get('/books/:id/edit', isLoggedIn, (req, res) => {
   });
 });
 
-router.put('/books/:id/edit/', (req, res) => {
+router.put('/books/:id/edit/', isLoggedIn, (req, res) => {
   const id = req.params.id;
   let bookData = {
     title: req.body.title,
@@ -118,10 +127,11 @@ router.put('/books/:id/edit/', (req, res) => {
 
   Queries.Books.updateBook(id, bookData).then((books) => {
     Queries.Books_Authors.getAuthorsByBookId(id).then((authors) => {
-      console.log(authors);
-      books[0].authors = authors;
       const alert = `${books[0].title} successfully updated`;
-      res.render('pages/books', { books: books, alert: alert });
+
+      console.log(res.user);
+      books[0].authors = authors;
+      res.render('pages/books', { books: books, alert: alert, user: res.user });
     });
   });
 });
