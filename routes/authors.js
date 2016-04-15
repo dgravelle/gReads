@@ -19,8 +19,10 @@ function isLoggedIn (req, res, next) {
 
 router.get('/authors', isLoggedIn, (req, res) => {
   const user = res.user;
+  const alert = req.alert;
 
   Queries.Authors.getAuthors().then((authors) => {
+
     if (!authors)
       console.error('could not retrieve authors');
 
@@ -34,7 +36,8 @@ router.get('/authors', isLoggedIn, (req, res) => {
       for (var i = 0; i < authors.length; i++) {
         authors[i].booksWritten = books[i];
       }
-      res.render('pages/authors', { authors: authors, user: user });
+
+      res.render('pages/authors', { authors: authors, user: user, alert: alert });
     })
     .catch((err) => {
       console.log(err);
@@ -42,27 +45,27 @@ router.get('/authors', isLoggedIn, (req, res) => {
   });
 });
 
-router.get('/authors/new', (req, res) => {
-  // get new author information
+router.get('/authors/new', isLoggedIn, (req, res) => {
+  if (!req.user) {
+    res.redirect('/');
+  }
   res.render('pages/author-form');
 });
 
 router.post('/authors/new', (req, res) => {
-  // get new author information
-  // console.log(req.body);
-  // const authorData = {
-  //   first_name: req.body.
-  //   last_name:
-  //   book_genre:
-  //   portrait_url:
-  //   biography:
-  //
-  // }
+  const authorData = {
+    first_name: req.body.firstName,
+    last_name: req.body.lastName,
+    url: req.body.bioUrl,
+    biography: req.body.biography
+  }
+  // console.log(authorData);
 
-  authors().insert()
-  books().insert()
-
-  res.send(req.body, 200);
+  Queries.Authors.createAuthor(authorData).then((author) => {
+    const alert = `${author.first_name + author.last_name} has been added.  Good job.`
+    req.alert = alert;
+    res.redirect('/authors');
+  });
 });
 
 router.get('/authors/:id', (req, res) => {
@@ -85,6 +88,21 @@ router.get('/authors/:id/edit', isLoggedIn, (req, res) => {
       console.log(authors);
       res.render('pages/author-form', { author: authors[0] });
     });
+  });
+});
+
+router.put('/authors/:id/edit/', (req, res) => {
+  const id = req.params.id;
+  const authorData = {
+    first_name: req.body.firstName,
+    last_name: req.body.lastName,
+    url: req.body.bioUrl,
+    biography: req.body.biography
+  }
+
+  Queries.Authors.updateAuthor(id, authorData).then((author) => {
+    console.log('author updated: ', author);
+    res.redirect('/authors');
   });
 });
 

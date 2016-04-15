@@ -8,7 +8,7 @@ body
   main.main--add-author
     div.mdl-grid
       div.mdl-cell.mdl-cell--4-col.mdl-cell--4-col-tablet.mdl-cell--4-col-phone
-          form#add-author__form(action= author ? "/authors/" + author.auth_id +"/edit?_method=PUT" : "authors/new", method="POST")
+          form#add-author__form(action= author ? "/authors/" + author.auth_id + "/edit?_method=PUT" : "/authors/new", method="POST")
 
               div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                 input#firstName.mdl-textfield__input(type="text", name="title"
@@ -23,7 +23,7 @@ body
                 span.mdl-textfield__error Please enter a last name
 
               div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                input#bioUrl.mdl-textfield__input(name="bioURL" type="text" value=author ? author.url : '')
+                input#bioUrl.mdl-textfield__input(name="bioUrl" type="text" value=author ? author.url : '')
                 label.mdl-textfield__label.g-reads-label--dark(for="bioURL") Portrait URL
                 span.mdl-textfield__error Please provide a URL to an image
 
@@ -33,16 +33,24 @@ body
                     = author.biography
                 label.mdl-textfield__label.g-reads-label--dark(for="description") Biography
                 span.mdl-textfield__error Please enter a biography
-              // insert script to add more authors to form
+
               div#booksWritten
                 if author
+                  each book in author.booksWritten
+                    div.mdl-grid
+                      div.mdl-cell.mdl-cell--10-col.mdl-cell--7-col-tablet.mdl-cell--3-col-phone
+                        input.mdl-textfield__input(name="title", value=book.title)
+                        
+                      div.mdl-cell.mdl-cell--1-col.mdl-cell--1-col-tablet.mdl-cell--1-col-phone
+                        a(href="")
+                          i.material-icons.remove-book clear
                   
 
               div.add-books-written
                 div.mdl-grid
                   div.mdl-cell.mdl-cell--10-col.mdl-cell--7-col-tablet.mdl-cell--3-col-phone
                     div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                      input#booksInput.mdl-textfield__input(type="text")
+                      input#bookInput.mdl-textfield__input(type="text")
                       label.mdl-textfield__label.g-reads-label--dark(for="booksInput") Book(s) written
                       span.mdl-textfield__error Please enter at least one book title for this author
                   div.mdl-cell.mdl-cell--1-col.mdl-cell--1-col-tablet.mdl-cell--1-col-phone
@@ -51,11 +59,15 @@ body
 
 
 
-              button#addAuthor.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--accent.mdl-js-ripple-effect(type="submit") Add Author
+              button#addAuthor.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--accent.mdl-js-ripple-effect(type="submit") 
+                if author 
+                  | Update
+                else 
+                  | Add Author
 
   include ../partials/footer
   
-  script(src="/static/js/author-form.js")
+  script(src="/static/js/add-author-form.js")
   
 
   

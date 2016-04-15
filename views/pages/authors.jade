@@ -7,6 +7,9 @@ body
   include ../partials/nav 
 
   main.main.main--book
+    if alert
+      div.alert= alert
+        
     include ../partials/author-listing
 
   include ../partials/footer 
