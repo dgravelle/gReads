@@ -1,5 +1,5 @@
 main.main.main--books {
-    padding: 30px 90px;
+    padding: 30px 100px;
 }
 
 /*
@@ -26,12 +26,16 @@ Media on main page
 
 */
 
+h2.mdl-card__title-text.text-center {
+  margin: 0 auto;
+}
+
 .mdl-card__media.main--home-card__media {
   background: none;
 }
 
-.mdl-card__media.main--home-card__media .main--home-card__img {
-  width: 100%;
+.main--home-card.mdl-card mdl-shadow--2dp.text-center {
+  text-align: center;
 }
 
 /* for hiding links from UI but keeping them screen reader accessible. */
@@ -54,6 +58,12 @@ Media on main page
   border-bottom: 1px solid rgba(0,0,0,.5);
 }
 
+/*
+
+Books Form
+
+*/
+
 .add-books-written .mdl-grid {
   padding-left: 0;
   padding-right: 0;
@@ -67,6 +77,9 @@ Media on main page
 }
 
 .book-listing .img-container img.book-listing__img {
-
   max-width: 100%;
+}
+
+.text-center {
+  text-align: center;
 }

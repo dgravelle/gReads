@@ -1,11 +1,6 @@
-doctype html
-html(lang=en)
+extends ../layout
 
-  include ../partials/head
-  
-body
-  include ../partials/nav
-  
+block content
   main.main.main--books
     if alert
       div.alert= alert

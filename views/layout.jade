@@ -3,5 +3,9 @@ html
   head
     include ./partials/head
   body
-    div.mdl-layout.mdl-js-layout
+    div.mdl-layout.mdl-js-layout.mdl-layout--fixed-header
+      include ./partials/nav
+      
       block content
+
+  include ./partials/footer
