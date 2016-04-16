@@ -2,7 +2,7 @@
 
 Link to deployed site
 
-...
+https://dg-galvanize-reads.herokuapp.com
 
 Link to your tracker project
 
