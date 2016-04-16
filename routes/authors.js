@@ -19,7 +19,9 @@ function isLoggedIn (req, res, next) {
 
 router.get('/authors', isLoggedIn, (req, res) => {
   const user = res.user;
-  const alert = req.alert;
+  const alert = req.query.alert;
+
+  console.log(alert);
 
   Queries.Authors.getAuthors().then((authors) => {
 
@@ -46,7 +48,7 @@ router.get('/authors', isLoggedIn, (req, res) => {
 });
 
 router.get('/authors/new', isLoggedIn, (req, res) => {
-  if (!req.user) {
+  if (req.user === 'undefined') {
     res.redirect('/');
   }
   res.render('pages/author-form');
@@ -63,8 +65,8 @@ router.post('/authors/new', (req, res) => {
 
   Queries.Authors.createAuthor(authorData).then((author) => {
     const alert = `${author.first_name + author.last_name} has been added.  Good job.`
-    req.alert = alert;
-    res.redirect('/authors');
+
+    res.redirect('/authors?alert=' + alert);
   });
 });
 

@@ -27,7 +27,10 @@ Media on main page
 */
 
 h2.mdl-card__title-text.text-center {
-  margin: 0 auto;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  flex: 1;
 }
 
 .mdl-card__media.main--home-card__media {

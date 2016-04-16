@@ -1,7 +1,0 @@
-Forms
-
-Is it best practice to have different forms for submitting NEW info such as authors or books, and have a separate form for editing information for that info.
-
-OR
-
-to have one "smart" form.
