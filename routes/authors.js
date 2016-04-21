@@ -21,8 +21,6 @@ router.get('/authors', isLoggedIn, (req, res) => {
   const user = res.user;
   const alert = req.query.alert;
 
-  console.log(alert);
-
   Queries.Authors.getAuthors().then((authors) => {
 
     if (!authors)
