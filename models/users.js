@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const Queries = require('../lib/knex-queries');
+const Queries = require('../models/knex-queries');
 const Users = Queries.Users;
 
 Users.createUser = (data, callback) => {

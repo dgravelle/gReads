@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const knex = require('../db/knex');
 const validate = require('../lib/validations');
-const Queries = require('../lib/knex-queries');
+const Queries = require('../models/knex-queries');
 
 function isLoggedIn (req, res, next) {
   if (!req.session.userId) {
