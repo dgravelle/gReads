@@ -15,14 +15,14 @@ router.post('/signup', (req, res) => {
     password: req.body.password
   }
 
-  validate.emailIsUnique(newAccount.email).then((result) => {
-    if(!result) {
-      const error = 'Sorry, this email is already in user';
-
-      res.status(404);
-      res.render('pages/signup', { error: error, attemptInfo: newAccount });
-      return res.end();
-    }
+  // validate.emailIsUnique(newAccount.email).then((result) => {
+  //   if(!result) {
+  //     const error = 'Sorry, this email is already in user';
+  //
+  //     res.status(404);
+  //     res.render('pages/signup', { error: error, attemptInfo: newAccount });
+  //     return res.end();
+  //   }
 
     Users.createUser(newAccount, (err, data) => {
       if (err)
@@ -32,7 +32,7 @@ router.post('/signup', (req, res) => {
       const alert = `Welcome ${data[0].email} \n You're all signed up for Galvanize Reads. Woohoo.`;
       res.render('pages/index', { alert: alert });
     });
-  });
+  // });
 });
 
 module.exports = router;

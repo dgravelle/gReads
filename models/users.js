@@ -14,6 +14,9 @@ Users.createUser = (data, callback) => {
     Users.create(data).then((data) => {
       console.log(`user created ${data}`);
       callback(undefined, data);
+    }).catch((err) => {
+      console.log(err)
+      callback(err)
     });
   });
 }
