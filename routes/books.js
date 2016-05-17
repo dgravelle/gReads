@@ -7,20 +7,11 @@ const knex = require('../db/knex');
 const validate = require('../lib/validations');
 const Queries = require('../models/knex-queries');
 
-function isLoggedIn (req, res, next) {
-  if (!req.session.userId) {
-    res.user = false;
-    next();
-  }
-  else {
-    res.user = true;
-    next()
-  }
-}
 
-app.use('/', isLoggedIn)
 
-router.get('/books', isLoggedIn, (req, res) => {
+app.use('/', validate.isLoggedIn)
+
+router.get('/books', validate.isLoggedIn, (req, res) => {
   const user = res.user;
   console.log(user);
   Queries.Books.getAllBooks().then((books) => {
@@ -92,7 +83,7 @@ router.get('/books/:id', (req, res) => {
   });
 });
 
-router.delete('/books/:id/delete', isLoggedIn, (req, res) => {
+router.delete('/books/:id/delete', validate.isLoggedIn, (req, res) => {
   const id = req.params.id;
 
   Queries.Books.delete(id).then(() => {
@@ -101,7 +92,7 @@ router.delete('/books/:id/delete', isLoggedIn, (req, res) => {
   });
 });
 
-router.get('/books/:id/edit', isLoggedIn, (req, res) => {
+router.get('/books/:id/edit', validate.isLoggedIn, (req, res) => {
   const id = req.params.id;
 
   Queries.Books.getBookById(id).then((books) => {
@@ -113,7 +104,7 @@ router.get('/books/:id/edit', isLoggedIn, (req, res) => {
   });
 });
 
-router.put('/books/:id/edit/', isLoggedIn, (req, res) => {
+router.put('/books/:id/edit/', validate.isLoggedIn, (req, res) => {
   const id = req.params.id;
   let bookData = {
     title: req.body.title,

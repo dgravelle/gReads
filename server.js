@@ -12,6 +12,8 @@ var authors = require('./routes/authors');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 
+var validate = require('./lib/validations')
+
 var app = express();
 require('dotenv').load();
 
@@ -32,19 +34,19 @@ app.use(session({
   keys: [process.env.SESSION_KEY]
 }));
 
-function isLoggedIn (req, res, next) {
-  console.log(req.session);
-  if (!req.session.userId) {
-    res.user = false;
-    next();
-  }
-  else {
-    res.user = true;
-    next()
-  }
-}
+// function validate.isLoggedIn (req, res, next) {
+//   console.log(req.session);
+//   if (!req.session.userId) {
+//     res.user = false;
+//     next();
+//   }
+//   else {
+//     res.user = true;
+//     next()
+//   }
+// }
 
-app.get('/', isLoggedIn, (req, res) => {
+app.get('/', validate.isLoggedIn, (req, res) => {
   const user = res.user;
   console.log(user);
   res.render('pages/index', { user: user });

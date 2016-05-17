@@ -5,19 +5,19 @@ const router = express.Router();
 const knex = require('../db/knex');
 const validate = require('../lib/validations');
 const Queries = require('../models/knex-queries');
+// 
+// function validate.isLoggedIn (req, res, next) {
+//   if (!req.session.userId) {
+//     res.user = false;
+//     next();
+//   }
+//   else {
+//     res.user = true;
+//     next()
+//   }
+// }
 
-function isLoggedIn (req, res, next) {
-  if (!req.session.userId) {
-    res.user = false;
-    next();
-  }
-  else {
-    res.user = true;
-    next()
-  }
-}
-
-router.get('/authors', isLoggedIn, (req, res) => {
+router.get('/authors', validate.isLoggedIn, (req, res) => {
   const user = res.user;
   const alert = req.query.alert;
 
@@ -45,7 +45,7 @@ router.get('/authors', isLoggedIn, (req, res) => {
   });
 });
 
-router.get('/authors/new', isLoggedIn, (req, res) => {
+router.get('/authors/new', validate.isLoggedIn, (req, res) => {
   if (req.user === 'undefined') {
     res.redirect('/');
   }
@@ -79,7 +79,7 @@ router.get('/authors/:id', (req, res) => {
   });
 });
 
-router.get('/authors/:id/edit', isLoggedIn, (req, res) => {
+router.get('/authors/:id/edit', validate.isLoggedIn, (req, res) => {
   const id = req.params.id;
 
   Queries.Authors.getAuthorById(id).then((authors) => {
