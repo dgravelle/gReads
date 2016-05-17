@@ -13,22 +13,19 @@ app.use('/', validate.isLoggedIn)
 
 router.get('/books', validate.isLoggedIn, (req, res) => {
   const user = res.user;
-  console.log(user);
+
   Queries.Books.getAllBooks().then((books) => {
     if(!books) {
       console.error('books not found');
     }
 
-    var promises = [];
-
-    for (let i = 0; i < books.length; i++) {
-      promises.push(Queries.Books_Authors.getAuthorsByBookId(books[i].book_id));
-    }
+    var promises = books.map((book) => {
+      return Queries.Books_Authors.getAuthorsByBookId(book.book_id)
+    });
 
     Promise.all(promises).then((authors) => {
       for (let i = 0; i < books.length; i++) {
         books[i].authors = authors[i];
-        // console.log(books[i].authors);
       }
 
       res.render('pages/books', { books: books, user: user });
@@ -50,7 +47,6 @@ router.post('/books/new', (req, res) => {
 
   // Check to see if entered book already exists in the db
   validate.isBookDuplicate(bookData.title).then((result) => {
-    console.log('validation result: ', result);
     if (result) {
       const error = 'Looks like this book already exists in our records. \n Please enter a book with a different title.';
       return res.render('pages/book-form', { book: bookData, error: error });
@@ -62,8 +58,6 @@ router.post('/books/new', (req, res) => {
       if(!book) {
          return console.error(`${bookData.title} was not added`);
       }
-
-      console.log('book id added to books table: ', book[0].book_id);
     })
     .catch((err) => {
       console.log(err);
@@ -77,7 +71,6 @@ router.get('/books/:id', (req, res) => {
   Queries.Books.getBookById(id).then((books) => {
     Queries.Books_Authors.getAuthorsByBookId(id).then((authors) => {
       books[0].authors = authors;
-      console.log('book.authors: ', books[0].authors);
       res.render('pages/books', { books: books });
     });
   });
@@ -98,7 +91,6 @@ router.get('/books/:id/edit', validate.isLoggedIn, (req, res) => {
   Queries.Books.getBookById(id).then((books) => {
     Queries.Books_Authors.getAuthorsByBookId(id).then((authors) => {
       books[0].authors = authors;
-      console.log('book.authors: ', books[0].authors);
       res.render('pages/book-form', { book: books[0] });
     });
   });
@@ -112,9 +104,6 @@ router.put('/books/:id/edit/', validate.isLoggedIn, (req, res) => {
     description: req.body.description,
     cover: req.body.coverImage
   }
-
-  console.log('putting');
-  console.log(bookData);
 
   Queries.Books.updateBook(id, bookData).then((books) => {
     Queries.Books_Authors.getAuthorsByBookId(id).then((authors) => {

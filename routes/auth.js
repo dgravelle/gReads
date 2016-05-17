@@ -25,7 +25,6 @@ router.post('/login', (req, res) => {
 
     req.session.userId = user.id;
     const alert = `Welcome ${user.email}`
-    console.log(req.session);
     res.render('pages/index', { alert: alert, user: true })
 
   });

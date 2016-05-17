@@ -5,17 +5,6 @@ const router = express.Router();
 const knex = require('../db/knex');
 const validate = require('../lib/validations');
 const Queries = require('../models/knex-queries');
-// 
-// function validate.isLoggedIn (req, res, next) {
-//   if (!req.session.userId) {
-//     res.user = false;
-//     next();
-//   }
-//   else {
-//     res.user = true;
-//     next()
-//   }
-// }
 
 router.get('/authors', validate.isLoggedIn, (req, res) => {
   const user = res.user;
