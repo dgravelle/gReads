@@ -86,3 +86,12 @@ Books Form
 .text-center {
   text-align: center;
 }
+
+/* Book listing */
+
+button.btn--delete.g-reads--btn {
+    background: none;
+    border: none;
+    color: orange;
+    padding: 0;
+}
