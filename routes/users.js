@@ -18,7 +18,7 @@ router.post('/signup', (req, res) => {
   Users.createUser(newAccount, (err, data) => {
     if (err)
     return res.render('pages/signup', { error: err });
-    
+
     const alert = `Welcome ${data[0].email} \n You're all signed up for Galvanize Reads. Woohoo.`;
     res.render('pages/index', { alert: alert });
   });

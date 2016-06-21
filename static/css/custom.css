@@ -95,3 +95,11 @@ button.btn--delete.g-reads--btn {
     color: orange;
     padding: 0;
 }
+
+/* Footer */
+
+.g-reads__footer {
+  bottom: 0;
+  position: static;
+  width: 100%;
+}
