@@ -1,3 +1,7 @@
+.main.main--home {
+  height: 100%;
+}
+
 main.main.main--books {
     padding: 30px 100px;
 }
